@@ -1,16 +1,23 @@
-import {createElement, HTMLAttributes} from "react";
+import {HTMLAttributes} from "react";
 import sanitize from 'sanitize-html';
 
 type SanitizeHTMLProps = {
     children: string;
-    tag: string;
+    tag?: string;
 } & HTMLAttributes<HTMLDivElement>;
 
-export const SanitizeHTML = ({tag, children, ...rest}: SanitizeHTMLProps) => {
-
+export const SanitizeHTML = ({children, ...rest}: SanitizeHTMLProps) => {
     const sanitizedHTML = sanitize(children, {
-        allowedTags: ['b', 'i', 'em', 'strong']
-    })
+        allowedTags: ['b', 'i', 'em', 'strong', 'h3', 'p', 'a', 'hr'],
+        allowedAttributes: {
+            'a': ['href']
+        }
+    });
 
-    return createElement(tag, {...rest}, sanitizedHTML)
+    return (
+        <div
+            {...rest}
+            dangerouslySetInnerHTML={{__html: sanitizedHTML}}
+        />
+    );
 }
