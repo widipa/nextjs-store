@@ -41,7 +41,9 @@ export const Chat = (props: { agent: string }) => {
                   {m.role === "assistant" ? "🤖" : "😊"}
                 </div>
                 <div className={styles.Chat__message__content}>
-                  <SanitizeHTML className={styles.Chat__message__html}>{m.content}</SanitizeHTML>
+                  <SanitizeHTML className={styles.Chat__message__html}>
+                    {m.content}
+                  </SanitizeHTML>
                 </div>
               </span>
                             )
